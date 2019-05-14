@@ -1,0 +1,18 @@
+
+ Title: Pelicula 1
+ Genero: Género 1
+ Year: 2018
+ Creator: Creador 1
+ Duration: 121
+
+ Title: Pelicula 2
+ Genero: Género 2
+ Year: 2019
+ Creator: Creador 2
+ Duration: 122
+
+ Title: Pelicula 4
+ Genero: Género 4
+ Year: 2021
+ Creator: Creador 4
+ Duration: 124
