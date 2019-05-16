@@ -3,7 +3,16 @@ package com.fernandocode.amazonviewer.model;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Movie extends Film implements IVisualizable {
+import com.fernandocode.amazonviewer.dao.MovieDAO;
+
+/**
+ * Hereda de {@link Film}
+ * Implementa de {@link IVisualizable}
+ * @author Laptop Fernando
+ *
+ */
+
+public class Movie extends Film implements IVisualizable, MovieDAO {
 
 	private int id;
 	private int timeViewed;
@@ -12,16 +21,15 @@ public class Movie extends Film implements IVisualizable {
 		super(title, genre, creator, duration);
 		setYear(year);
 	}
-
-	public void showData() {
-		/*
-		 * System.out.println("Titulo = " + this.title ); System.out.println("Género = "
-		 * + this.genre ); System.out.println("Year = " + this.year );
-		 */
-	}
+	
+	public Movie() {}
 
 	public int getId() {
 		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public int getTimeViewed() {
@@ -34,39 +42,66 @@ public class Movie extends Film implements IVisualizable {
 
 	@Override
 	public String toString() {
-		return "\n Title: " + getTitle() + "\n Genero: " + getGenre() + "\n Year: " + getYear() + "\n Creator: "
-				+ getCreator() + "\n Duration: " + getDuration();
+		// TODO Auto-generated method stub
+		return "\n :: MOVIE ::" + "\n Title: " + getTitle() + "\n Genero: " + getGenre() + "\n Year: " + getYear()
+				+ "\n Creator: " + getCreator() + "\n Duration: " + getDuration();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
-	public Date startToSee(Date dateInicio) {
+	public Date startToSee(Date dateI) {
 		// TODO Auto-generated method stub
-		return dateInicio;
+		return dateI;
 	}
 
+	/**
+	 * define toda la presedencia de este método para ver desde donde ha sido sobre escrito.
+	 * {@inheritDoc}
+	 */
 	@Override
-	public void stopToSee(Date dateInicio, Date dateFinal) {
+	public void stopToSee(Date dateI, Date dateF) {
 		// TODO Auto-generated method stub
-		if (dateFinal.getTime() > dateInicio.getTime()) {
-			setTimeViewed((int)(dateFinal.getTime() - dateInicio.getTime()));
+
+		if (dateF.getTime() > dateI.getTime()) {
+			setTimeViewed((int) (dateF.getTime() - dateI.getTime()));
 		} else {
 			setTimeViewed(0);
 		}
+
 	}
-	
-	public static ArrayList<Movie> makeMoviesList()
-	{
-		ArrayList<Movie> movies = new ArrayList<Movie>();
-				
-		for (int i = 0; i < 5; i++) {
-			movies.add(new Movie("Pelicula " + i , "Género " + i , "Creador " + i, 120 + i , (short)(2017 + i ) ));
+
+	public static ArrayList<Movie> makeMoviesList() {
+
+		Movie movie = new Movie();
+		return movie.read();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void view() {
+		// TODO Auto-generated method stub
+		setViewed(true);
+		
+		Movie movie = new Movie();
+		movie.setMovieViewed(this);
+		
+		Date dateI = startToSee(new Date());
+
+		
+		
+		for (int i = 0; i < 100000; i++) {
+			System.out.println("..........");
 		}
-				
-		return movies;		
+
+		// Termine de verla
+		stopToSee(dateI, new Date());
+		System.out.println();
+		System.out.println("Viste: " + toString());
+		System.out.println("Por: " + getTimeViewed() + " milisegundos");
 	}
 
 }
-
-
-
-
